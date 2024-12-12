@@ -142,7 +142,7 @@ namespace turbolink
                 throw new Exception("usb cmd unexpected response: " + resp.ToString("X2"));
             }
         }
-    
+
 
         public void reset()
         {
@@ -160,7 +160,7 @@ namespace turbolink
 
         }
 
-        public void vramDump(byte []vram, byte []palette)
+        public void vramDump(byte[] vram, byte[] palette)
         {
             int dump_addr;
             edio.fifoWR("*v");
@@ -169,6 +169,6 @@ namespace turbolink
             edio.memRD(dump_addr, vram, 0, 0x10000);
             edio.memRD(dump_addr + 0x10000, palette, 0, 1024);
         }
-        
+
     }
 }

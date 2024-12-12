@@ -46,8 +46,11 @@ namespace turbolink
                 edio = new Edio();
             }
 
-            Console.WriteLine("EverDrive found at " + edio.PortName);
-            Console.WriteLine("EDIO status: " + edio.getStatus().ToString("X4"));
+            Console.Write("EverDrive found at " + edio.PortName);
+
+            byte[] status = edio.getStatusBytes();
+            Console.WriteLine(", Device ID: " + status[2].ToString("X2") + " (" + edio.getDeviceName(status[2]) + ")");
+            Console.WriteLine("EDIO status: " + status[3].ToString("X2"));
             Console.WriteLine("");
 
 

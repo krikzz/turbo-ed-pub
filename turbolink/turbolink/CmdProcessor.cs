@@ -5,7 +5,7 @@ using System.Threading;
 namespace turbolink
 {
     class CmdProcessor
-    { 
+    {
 
 
         static Edio edio;
@@ -18,13 +18,16 @@ namespace turbolink
             usb = new Usbio(edio);
             arst_off = false;
 
+            string usr_fpga = null;
+            string usr_rom = null;
+
 
             for (int i = 0; i < args.Length; i++)
             {
                 string cmd = args[i].ToLower().Trim();
 
 
-                if (cmd.Equals("-netgate"))
+                if (cmd.Equals("-netgate"))//usb no network bridge
                 {
                     NetGate.start(io);
                 }
@@ -52,7 +55,7 @@ namespace turbolink
                     continue;
                 }
 
-                if (cmd.Equals("-update"))//as recovery, but executed from bootloader. wors without power down 
+                if (cmd.Equals("-update"))//as recovery, but executed from bootloader. works without power down down
                 {
                     cmd_update();
                     return;//usb link will be lost. no more commands can be executed
@@ -125,25 +128,14 @@ namespace turbolink
                     continue;
                 }
 
-
-
                 if (cmd.EndsWith(".pce"))
                 {
+                    usr_rom = args[i];
+                }
 
-                    string usr_fpga = null;
-                    //check if user fpga file specified
-                    for (int u = 0; u < args.Length; u++)
-                    {
-                        string arg = args[u].ToLower().Trim();
-
-                        if (arg.EndsWith(".rbf"))
-                        {
-                            usr_fpga = arg;
-                            break;
-                        }
-                    }
-
-                    cmd_loadGame(cmd, usr_fpga);
+                if (isMapperFile(cmd))
+                {
+                    usr_fpga = args[i];
                     continue;
                 }
 
@@ -171,13 +163,17 @@ namespace turbolink
 
             }
 
- 
+            if (usr_rom != null)
+            {
+                cmd_loadGame(usr_rom, usr_fpga);
+            }
+
             Thread.Sleep(10);//make sure that reset isn't toggled too fast
             edio.hostReset(Edio.HOST_RST_OFF);
             Console.WriteLine("");
         }
 
-       
+
         static int getNum(string num)
         {
 
@@ -197,7 +193,7 @@ namespace turbolink
 
             if (arst_off) return;
 
-            if(addr < Edio.SIZE_ROM)
+            if (addr < Edio.SIZE_ROM)
             {
                 edio.hostReset(Edio.HOST_RST);
             }
@@ -211,7 +207,7 @@ namespace turbolink
             addr = getNum(addr_str);
             len = getNum(len_str);
             if (len > 8192) len = 8192;
-            if(len % 16 != 0)
+            if (len % 16 != 0)
             {
                 len = (len / 16 + 1) * 16;
             }
@@ -240,7 +236,7 @@ namespace turbolink
             edio.memRD(addr, mdata, 0, mdata.Length);
 
 
-            byte []fdata = File.ReadAllBytes(path);
+            byte[] fdata = File.ReadAllBytes(path);
 
             int cmp_len = Math.Min(mdata.Length, fdata.Length);
             for (int i = 0; i < cmp_len; i++)
@@ -295,7 +291,7 @@ namespace turbolink
             Console.WriteLine("ok");
         }
 
-       
+
 
 
         static void cmd_recovery()
@@ -413,8 +409,8 @@ namespace turbolink
             {
                 string fpga_dst = usb_home + "/" + Path.GetFileName(fpga_path);
                 usb.copyFile(fpga_path, fpga_dst);
-            }          
-            
+            }
+
             usb.appInstall(game_dst.Substring(3));
             usb.appStart();
 
@@ -428,7 +424,38 @@ namespace turbolink
             byte[] palette = new byte[1024];
 
             usb.vramDump(vram, palette);
-            MenuImage.makeImage(DateTime.Now.ToString().Replace(":", "").Replace(" ", "_").Replace(".", "-") + ".png", vram, palette);
+            MenuImage.makeImage(DateTime.Now.ToString().Replace(":", "").Replace(" ", "_").Replace(".", "-").Replace("/", "-") + ".png", vram, palette);
+        }
+
+        static bool isMapperFile(string path)
+        {
+            string file_ext = Path.GetExtension(path).ToLower();
+
+            if (file_ext.Length != 4)
+            {
+                return false;
+            }
+
+            if (file_ext.EndsWith(".rbf"))
+            {
+                return true;
+            }
+
+            if (file_ext[0] != '.') return false;
+            if (file_ext[1] != 'x') return false;
+            try
+            {
+                int id = Convert.ToInt32(file_ext.Substring(2), 16);
+                //Console.WriteLine("id: " + id.ToString("X2"));
+            }
+            catch
+            {
+                return false;
+            }
+
+            return true;
+            //Console.WriteLine();
+            //return path.EndsWith(".rbf");
         }
 
     }

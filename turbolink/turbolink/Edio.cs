@@ -39,6 +39,8 @@ namespace turbolink
 
     class Edio
     {
+        public const byte DEVID_TE_PRO = 0x20;
+        public const byte DEVID_TE_CORE = 0x26;
 
         const byte STATUS_KEY = 0x5A;
         const byte PROTOCOL_ID = 0x02;
@@ -57,7 +59,7 @@ namespace turbolink
         public const int SIZE_FLASH = 0x800000;
 
         public const int MAX_ROM_SIZE = 0x800000;
-        
+
 
         public const byte FAT_READ = 0x01;
         public const byte FAT_WRITE = 0x02;
@@ -67,8 +69,8 @@ namespace turbolink
         public const byte FAT_OPEN_ALWAYS = 0x10;
         public const byte FAT_OPEN_APPEND = 0x30;
 
-        public const byte HOST_RST_OFF    = 0;
-        public const byte HOST_RST   = 1;
+        public const byte HOST_RST_OFF = 0;
+        public const byte HOST_RST = 1;
 
         const byte CMD_STATUS = 0x10;
         const byte CMD_GET_MODE = 0x11;
@@ -399,6 +401,11 @@ namespace turbolink
                 throw new Exception("unexpected status response (" + BitConverter.ToString(resp) + ")");
             }
             return resp[3];
+        }
+
+        public byte[] getStatusBytes()
+        {
+            return getID();
         }
 
         public byte[] getID()
@@ -766,7 +773,7 @@ namespace turbolink
         }
 
 
-        
+
         public bool isServiceMode()
         {
             txCMD(CMD_GET_MODE);
@@ -908,6 +915,21 @@ namespace turbolink
             }
 
             throw new Exception("boot timeout");
+        }
+
+        public string getDeviceName(byte dev_id)
+        {
+            if (dev_id == DEVID_TE_PRO)
+            {
+                return "Turbo EverDrive PRO";
+            }
+
+            if (dev_id == DEVID_TE_CORE)
+            {
+                return "Turbo EverDrive CORE";
+            }
+
+            return "Unknown device";
         }
     }
 
