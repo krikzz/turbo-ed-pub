@@ -1,0 +1,186 @@
+# -------------------------------------------------------------------------- #
+#
+# Copyright (C) 2020  Intel Corporation. All rights reserved.
+# Your use of Intel Corporation's design tools, logic functions 
+# and other software and tools, and any partner logic 
+# functions, and any output files from any of the foregoing 
+# (including device programming or simulation files), and any 
+# associated documentation or information are expressly subject 
+# to the terms and conditions of the Intel Program License 
+# Subscription Agreement, the Intel Quartus Prime License Agreement,
+# the Intel FPGA IP License Agreement, or other applicable license
+# agreement, including, without limitation, that your use is for
+# the sole purpose of programming logic devices manufactured by
+# Intel and sold by Intel or its authorized distributors.  Please
+# refer to the applicable agreement for further details, at
+# https://fpgasoftware.intel.com/eula.
+#
+# -------------------------------------------------------------------------- #
+#
+# Quartus Prime
+# Version 20.1.1 Build 720 11/11/2020 SJ Lite Edition
+# Date created = 12:04:43  September 13, 2024
+#
+# -------------------------------------------------------------------------- #
+#
+# Notes:
+#
+# 1) The default values for assignments are stored in the file:
+#		tecore_assignment_defaults.qdf
+#    If this file doesn't exist, see file:
+#		assignment_defaults.qdf
+#
+# 2) Altera recommends that you do not modify this file. This
+#    file is updated automatically by the Quartus Prime software
+#    and any changes you make may be lost or overwritten.
+#
+# -------------------------------------------------------------------------- #
+
+
+set_global_assignment -name FAMILY "Cyclone 10 LP"
+set_global_assignment -name DEVICE 10CL006YU256C8G
+set_global_assignment -name TOP_LEVEL_ENTITY top
+set_global_assignment -name ORIGINAL_QUARTUS_VERSION 20.1.1
+set_global_assignment -name PROJECT_CREATION_TIME_DATE "12:04:43  SEPTEMBER 13, 2024"
+set_global_assignment -name LAST_QUARTUS_VERSION "20.1.1 Lite Edition"
+set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
+set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
+set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
+set_global_assignment -name DEVICE_FILTER_PIN_COUNT 256
+set_global_assignment -name DEVICE_FILTER_SPEED_GRADE 8
+set_global_assignment -name ERROR_CHECK_FREQUENCY_DIVISOR 1
+set_global_assignment -name NOMINAL_CORE_SUPPLY_VOLTAGE 1.2V
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_location_assignment PIN_D1 -to BTNn
+set_location_assignment PIN_E15 -to CLK
+set_location_assignment PIN_C1 -to FCI_MISO
+set_location_assignment PIN_H2 -to FCI_MOSI
+set_location_assignment PIN_E1 -to FCI_SCK
+set_location_assignment PIN_A2 -to LED_FPGn
+set_location_assignment PIN_C6 -to PSR_A[0]
+set_location_assignment PIN_C8 -to PSR_A[1]
+set_location_assignment PIN_E7 -to PSR_A[2]
+set_location_assignment PIN_E8 -to PSR_A[3]
+set_location_assignment PIN_F7 -to PSR_A[4]
+set_location_assignment PIN_D8 -to PSR_A[5]
+set_location_assignment PIN_F8 -to PSR_A[6]
+set_location_assignment PIN_C9 -to PSR_A[7]
+set_location_assignment PIN_A9 -to PSR_A[8]
+set_location_assignment PIN_A10 -to PSR_A[9]
+set_location_assignment PIN_A11 -to PSR_A[10]
+set_location_assignment PIN_A12 -to PSR_A[11]
+set_location_assignment PIN_B9 -to PSR_A[12]
+set_location_assignment PIN_B11 -to PSR_A[13]
+set_location_assignment PIN_B8 -to PSR_A[14]
+set_location_assignment PIN_B10 -to PSR_A[15]
+set_location_assignment PIN_F6 -to PSR_A[16]
+set_location_assignment PIN_D3 -to PSR_A[17]
+set_location_assignment PIN_A8 -to PSR_A[18]
+set_location_assignment PIN_B7 -to PSR_A[19]
+set_location_assignment PIN_A13 -to PSR_A[20]
+set_location_assignment PIN_E6 -to PSR_A[21]
+set_location_assignment PIN_D14 -to PSR_CEn
+set_location_assignment PIN_C14 -to PSR_D[0]
+set_location_assignment PIN_E9 -to PSR_D[1]
+set_location_assignment PIN_C11 -to PSR_D[2]
+set_location_assignment PIN_D9 -to PSR_D[3]
+set_location_assignment PIN_A15 -to PSR_D[4]
+set_location_assignment PIN_A14 -to PSR_D[5]
+set_location_assignment PIN_B14 -to PSR_D[6]
+set_location_assignment PIN_B13 -to PSR_D[7]
+set_location_assignment PIN_B3 -to PSR_D[8]
+set_location_assignment PIN_A4 -to PSR_D[9]
+set_location_assignment PIN_B4 -to PSR_D[10]
+set_location_assignment PIN_A5 -to PSR_D[11]
+set_location_assignment PIN_B5 -to PSR_D[12]
+set_location_assignment PIN_B6 -to PSR_D[13]
+set_location_assignment PIN_A6 -to PSR_D[14]
+set_location_assignment PIN_A7 -to PSR_D[15]
+set_location_assignment PIN_C3 -to PSR_LBn
+set_location_assignment PIN_D6 -to PSR_OEn
+set_location_assignment PIN_A3 -to PSR_UBn
+set_location_assignment PIN_B12 -to PSR_WEn
+set_location_assignment PIN_L15 -to TG_A[0]
+set_location_assignment PIN_M16 -to TG_A[1]
+set_location_assignment PIN_M15 -to TG_A[2]
+set_location_assignment PIN_N16 -to TG_A[3]
+set_location_assignment PIN_N15 -to TG_A[4]
+set_location_assignment PIN_P16 -to TG_A[5]
+set_location_assignment PIN_P15 -to TG_A[6]
+set_location_assignment PIN_R16 -to TG_A[7]
+set_location_assignment PIN_L2 -to TG_A[8]
+set_location_assignment PIN_L1 -to TG_A[9]
+set_location_assignment PIN_K1 -to TG_A[10]
+set_location_assignment PIN_K2 -to TG_A[11]
+set_location_assignment PIN_J1 -to TG_A[12]
+set_location_assignment PIN_N1 -to TG_A[13]
+set_location_assignment PIN_N2 -to TG_A[14]
+set_location_assignment PIN_L3 -to TG_A[15]
+set_location_assignment PIN_L4 -to TG_A[16]
+set_location_assignment PIN_P1 -to TG_A[17]
+set_location_assignment PIN_P2 -to TG_A[18]
+set_location_assignment PIN_K5 -to TG_A[19]
+set_location_assignment PIN_J2 -to TG_A[20]
+set_location_assignment PIN_N14 -to TG_DDIR
+set_location_assignment PIN_J11 -to TG_DOEn
+set_location_assignment PIN_L16 -to TG_D[0]
+set_location_assignment PIN_K15 -to TG_D[1]
+set_location_assignment PIN_K16 -to TG_D[2]
+set_location_assignment PIN_J15 -to TG_D[3]
+set_location_assignment PIN_J16 -to TG_D[4]
+set_location_assignment PIN_J14 -to TG_D[5]
+set_location_assignment PIN_J13 -to TG_D[6]
+set_location_assignment PIN_J12 -to TG_D[7]
+set_location_assignment PIN_R1 -to TG_HSM
+set_location_assignment PIN_J6 -to TG_IRQ2n
+set_location_assignment PIN_K6 -to TG_RSTFn
+set_location_assignment PIN_M1 -to TG_WEn
+set_location_assignment PIN_M2 -to TG_OEn
+set_global_assignment -name ENABLE_OCT_DONE OFF
+set_global_assignment -name USE_CONFIGURATION_DEVICE OFF
+set_global_assignment -name GENERATE_RBF_FILE ON
+set_global_assignment -name CRC_ERROR_OPEN_DRAIN OFF
+set_global_assignment -name STRATIX_DEVICE_IO_STANDARD "3.3-V LVTTL"
+set_global_assignment -name CYCLONEII_RESERVE_NCEO_AFTER_CONFIGURATION "USE AS REGULAR IO"
+set_global_assignment -name RESERVE_DATA0_AFTER_CONFIGURATION "USE AS REGULAR IO"
+set_global_assignment -name RESERVE_DATA1_AFTER_CONFIGURATION "USE AS REGULAR IO"
+set_global_assignment -name RESERVE_FLASH_NCE_AFTER_CONFIGURATION "USE AS REGULAR IO"
+set_global_assignment -name OUTPUT_IO_TIMING_NEAR_END_VMEAS "HALF VCCIO" -rise
+set_global_assignment -name OUTPUT_IO_TIMING_NEAR_END_VMEAS "HALF VCCIO" -fall
+set_global_assignment -name OUTPUT_IO_TIMING_FAR_END_VMEAS "HALF SIGNAL SWING" -rise
+set_global_assignment -name OUTPUT_IO_TIMING_FAR_END_VMEAS "HALF SIGNAL SWING" -fall
+set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
+set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
+set_location_assignment PIN_B1 -to FCI_IO_0
+set_location_assignment PIN_C2 -to FCI_IO_1
+set_location_assignment PIN_D2 -to FCI_IO_2
+set_location_assignment PIN_D4 -to FCI_IO_3
+set_location_assignment PIN_F3 -to FCI_IO_4
+set_location_assignment PIN_G2 -to FCI_IO_5
+set_location_assignment PIN_G1 -to FCI_IO_6
+set_global_assignment -name SYSTEMVERILOG_FILE top.sv
+set_global_assignment -name SDC_FILE clocks.sdc
+set_global_assignment -name SYSTEMVERILOG_FILE huc/huc_sys.sv
+set_global_assignment -name SYSTEMVERILOG_FILE huc/huc_std.sv
+set_global_assignment -name SYSTEMVERILOG_FILE huc/huc_ssc.sv
+set_global_assignment -name SYSTEMVERILOG_FILE huc/huc_sf2.sv
+set_global_assignment -name SYSTEMVERILOG_FILE huc/huc_pop.sv
+set_global_assignment -name SYSTEMVERILOG_FILE huc/huc_nom.sv
+set_global_assignment -name SYSTEMVERILOG_FILE huc/huc_hub.sv
+set_global_assignment -name SYSTEMVERILOG_FILE huc/huc_384.sv
+set_global_assignment -name SYSTEMVERILOG_FILE exp/exp_tnb.sv
+set_global_assignment -name SYSTEMVERILOG_FILE exp/exp_hub.sv
+set_global_assignment -name SYSTEMVERILOG_FILE base/var.sv
+set_global_assignment -name SYSTEMVERILOG_FILE base/sys_cfg.sv
+set_global_assignment -name SYSTEMVERILOG_FILE base/structs.sv
+set_global_assignment -name SYSTEMVERILOG_FILE base/pi_map.sv
+set_global_assignment -name SYSTEMVERILOG_FILE base/pi_io.sv
+set_global_assignment -name SYSTEMVERILOG_FILE base/memory.sv
+set_global_assignment -name SYSTEMVERILOG_FILE base/fifo.sv
+set_global_assignment -name SYSTEMVERILOG_FILE base/everdrive.sv
+set_global_assignment -name SYSTEMVERILOG_FILE base/audio.sv
+set_global_assignment -name SYSTEMVERILOG_FILE base/bram.sv
+set_global_assignment -name QIP_FILE pll_1.qip
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

@@ -1,1 +1,0 @@
-turbolink hello-app/hello-app.pce
