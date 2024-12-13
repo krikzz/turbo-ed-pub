@@ -10,7 +10,7 @@
 
 #include "cfg.h"
 #include "sys.h"
-#include "bios.h"
+#include "everdrive.h"
 
 
 #endif	/* MAIN_H */

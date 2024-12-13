@@ -22,7 +22,7 @@ BDIR		:=build
 vpath %.o $(BDIR)/
 
 
-SRC_S := crt0.s sys_asm.s bios_asm.s
+SRC_S := crt0.s sys_asm.s everdrive_asm.s
 SRC_C := $(wildcard *.c)
 #SRC_C := $(filter-out app-%.c, $(SRC_C))
 

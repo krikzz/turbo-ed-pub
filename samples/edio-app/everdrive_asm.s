@@ -11,24 +11,24 @@ FIFO_CPU_RXF    = $80
 .segment "BSS"
 ram_app:        .res 128
 
-.export _bi_halt_arg
-_bi_halt_arg:   .res 1
+.export _ed_halt_arg
+_ed_halt_arg:   .res 1
 
 .segment "BNK00"
 
 ;******************************************************************************* dma halt
 
-.export _bi_init_asm
-_bi_init_asm:
-    tii bi_ram_app_code, ram_app,  bi_ram_app_code_end - bi_ram_app_code
+.export _ed_init_asm
+_ed_init_asm:
+    tii ed_ram_app_code, ram_app,  ed_ram_app_code_end - ed_ram_app_code
     rts
 
-.export _bi_halt_asm
-_bi_halt_asm:
+.export _ed_halt_asm
+_ed_halt_asm:
     jmp ram_app
 
-bi_ram_app_code:
-    lda _bi_halt_arg    ;required status
+ed_ram_app_code:
+    lda _ed_halt_arg    ;required status
     sta REG_SYS_STAT
     lda #0
     sta REG_FIFO_DATA   ;exec
@@ -44,30 +44,30 @@ bi_ram_app_code:
     bne @0
     
     txa
-    and _bi_halt_arg    ;repeat till all bits specifid in bi_halt_arg will not be cleared
+    and _ed_halt_arg    ;repeat till all bits specifid in ed_halt_arg will not be cleared
     bne @0
     
-    lda _bi_halt_arg
+    lda _ed_halt_arg
     and #STATUS_REBOOT
     beq skip_reboot
     jmp ($fffe)
 skip_reboot:
     rts
-bi_ram_app_code_end:
+ed_ram_app_code_end:
 
 ;******************************************************************************* start app
-.export _bi_start_app_asm
-_bi_start_app_asm:
-    tii bi_start_app_code, ram_app,  bi_start_app_end - bi_start_app_code
+.export _ed_start_app_asm
+_ed_start_app_asm:
+    tii ed_start_app_code, ram_app,  ed_start_app_end - ed_start_app_code
     jmp ram_app
-bi_start_app_code:
-    lda _bi_halt_arg
+ed_start_app_code:
+    lda _ed_halt_arg
     sta REG_SYS_STAT
     lda #0
     sta REG_FIFO_DATA   ;exec mem wr
 @0:
     lda REG_SYS_STAT
-    and _bi_halt_arg    ;repeat till all bits specifid in bi_halt_arg will not be cleared
+    and _ed_halt_arg    ;repeat till all bits specifid in ed_halt_arg will not be cleared
     bne @0
     
     lda #$ff
@@ -81,11 +81,11 @@ bi_start_app_code:
     lda #00
     csl
     jmp ($fffe)
-bi_start_app_end:
+ed_start_app_end:
 
 ;*******************************************************************************
-.export _bi_fifo_rd_asm
-_bi_fifo_rd_asm:
+.export _ed_fifo_rd_asm
+_ed_fifo_rd_asm:
     ldy #0
     ldx _zp_len
 @0:
@@ -102,8 +102,8 @@ _bi_fifo_rd_asm:
     bne @0
     rts
 
-.export _bi_fifo_wr_asm
-_bi_fifo_wr_asm:
+.export _ed_fifo_wr_asm
+_ed_fifo_wr_asm:
     ldy #0
     ldx _zp_len
 @0:
@@ -119,8 +119,8 @@ _bi_fifo_wr_asm:
 
     rts
 
-.export _bi_cmd_tx_asm
-_bi_cmd_tx_asm:
+.export _ed_cmd_tx_asm
+_ed_cmd_tx_asm:
 
     lda #'+'
     sta REG_FIFO_DATA

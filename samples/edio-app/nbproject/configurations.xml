@@ -4,11 +4,11 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <itemPath>bios.c</itemPath>
-      <itemPath>bios.h</itemPath>
-      <itemPath>bios_asm.s</itemPath>
       <itemPath>cfg.h</itemPath>
       <itemPath>crt0.s</itemPath>
+      <itemPath>everdrive.c</itemPath>
+      <itemPath>everdrive.h</itemPath>
+      <itemPath>everdrive_asm.s</itemPath>
       <itemPath>main.c</itemPath>
       <itemPath>main.h</itemPath>
       <itemPath>sys.c</itemPath>

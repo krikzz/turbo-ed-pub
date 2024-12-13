@@ -1,6 +1,7 @@
 
 #include "main.h"
 
+void deviceID();
 void romPath();
 void romRead();
 void fileRead();
@@ -17,11 +18,12 @@ static u8 rom_path[512];
 void main() {
 
     sysInit();
-    bi_init();
+    ed_init();
 
     gConsPrintCX("EverDrive IO sample");
     gSetXY(0, 2);
 
+    deviceID();
     romPath(); //get current rom path
     romRead(); //read rom memory
     fileRead(); //read from file
@@ -41,9 +43,38 @@ void main() {
     while (1);
 }
 
+void deviceID() {
+
+    u8 resp[4];
+
+    //0: STATUS_KEY
+    //1: PROTOCOL_ID
+    //2: DEVID
+    //3: EDIO_STATUS
+    ed_cmd_status(resp);
+
+
+    gConsPrint("dev ID   : ");
+    gAppendHex8(resp[2]);
+    gConsPrint("dev name : ");
+
+    switch (resp[2]) {
+        case DEVID_TE_PRO:
+            gAppendString("Turbo EverDrive PRO");
+            break;
+        case DEVID_TE_CORE:
+            gAppendString("Turbo EverDrive CORE");
+            break;
+        default:
+            gAppendString("Unknown");
+            break;
+    }
+
+}
+
 void romPath() {
 
-    bi_cmd_rom_path(rom_path, 0); //buffer size should be not less than 512B
+    ed_cmd_rom_path(rom_path, 0); //buffer size should be not less than 512B
 
     gConsPrint("rom path : ");
     gAppendString_ML(rom_path, 27);
@@ -55,7 +86,7 @@ void romRead() {
     u8 buff[12];
 
     gConsPrint("rom read : ");
-    bi_mem_rdd(16, buff, sizeof (buff)); //read rom memory at offset 16
+    ed_mem_rdd(16, buff, sizeof (buff)); //read rom memory at offset 16
     gAppendHex(buff, sizeof (buff));
 }
 
@@ -65,12 +96,12 @@ void fileRead() {
     u8 buff[12];
     u32 size;
 
-    resp = bi_cmd_file_open("edturbo/menu.dat", FA_READ);
+    resp = ed_cmd_file_open("edturbo/menu.dat", FA_READ);
     if (resp)return; //error
-    size = bi_cmd_file_available();
-    resp = bi_cmd_file_read(buff, sizeof (buff));
+    size = ed_cmd_file_available();
+    resp = ed_cmd_file_read(buff, sizeof (buff));
     if (resp)return; //error
-    resp = bi_cmd_file_close();
+    resp = ed_cmd_file_close();
     if (resp)return; //error
 
     gConsPrint("file read: ");
@@ -86,11 +117,11 @@ void fileWrite() {
 
     gConsPrint("file write...");
     //create "test_file.txt" in the root of SD and write buff to the file.
-    resp = bi_cmd_file_open("test_file.txt", FA_WRITE | FA_CREATE_ALWAYS);
+    resp = ed_cmd_file_open("test_file.txt", FA_WRITE | FA_CREATE_ALWAYS);
     if (resp)return; //error
-    resp = bi_cmd_file_write(buff, sizeof (buff));
+    resp = ed_cmd_file_write(buff, sizeof (buff));
     if (resp)return; //error
-    resp = bi_cmd_file_close();
+    resp = ed_cmd_file_close();
     if (resp)return; //error
     gAppendString("ok");
 
@@ -103,12 +134,12 @@ void fileToRom() {
 
     gConsPrint("read file to rom...");
 
-    resp = bi_cmd_file_open("edturbo/menu.dat", FA_READ);
+    resp = ed_cmd_file_open("edturbo/menu.dat", FA_READ);
     if (resp)return; //error
-    size = bi_cmd_file_available();
-    resp = bi_cmd_file_read_mem(0x20000, size); //write whole file to the rom memory at offset 0x20000
+    size = ed_cmd_file_available();
+    resp = ed_cmd_file_read_mem(0x20000, size); //write whole file to the rom memory at offset 0x20000
     if (resp)return; //error
-    resp = bi_cmd_file_close();
+    resp = ed_cmd_file_close();
     if (resp)return; //error
 
     gAppendString("ok");
@@ -127,18 +158,18 @@ void folderList() {
     gConsPrint("");
     gConsPrint("get folder list...");
 
-    resp = bi_cmd_dir_load("edturbo", 0); //get list of files in system folder
+    resp = ed_cmd_dir_load("edturbo", 0); //get list of files in system folder
     if (resp)return; //error
-    bi_cmd_dir_get_size(&size);
+    ed_cmd_dir_get_size(&size);
 
     gAppendString("dir size: ");
     gAppendNum(size);
 
-    bi_cmd_dir_get_recs(0, size, sizeof (name_buff) - 1);
+    ed_cmd_dir_get_recs(0, size, sizeof (name_buff) - 1);
 
     for (i = 0; i < size && i < 8; i++) {
 
-        resp = bi_rx_next_rec(&inf);
+        resp = ed_rx_next_rec(&inf);
         if (resp)return; //error
         gConsPrint("[");
         gAppendString(inf.file_name);
@@ -161,11 +192,11 @@ void sysTimer() {
     gConsPrint("one frame time: ");
 
     gVsync(); //vsync alignment
-    time = bi_get_ticks();
+    time = ed_get_ticks();
     for (i = 0; i < 10; i++) {//10 iteration for accurate measurement
         gVsync();
     }
-    time = bi_get_ticks() - time;
+    time = ed_get_ticks() - time;
     time /= 10;
 
     gAppendNum(time);
@@ -176,7 +207,7 @@ void sysTimer() {
 void usbWrite() {//send strings to the virtual com-port. Use any serial terminal app to receive strings.
 
     gConsPrint("send test string to usb...");
-    bi_cmd_usb_wr("test string\n", 12);
+    ed_cmd_usb_wr("test string\n", 12);
 
 }
 
@@ -191,7 +222,7 @@ void usbRead() {//receive strings from virtual-com and print to the screen. use 
 
         //single byte communication is very slow. 
         //use larger blocks for real applications but not more than SIZE_FIFO
-        bi_fifo_rd(&char_val, 1);
+        ed_fifo_rd(&char_val, 1);
 
         if (char_val == '\n') {
             gConsPrint("");

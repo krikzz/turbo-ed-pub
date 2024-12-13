@@ -1,12 +1,12 @@
 /* 
- * File:   bios.h
+ * File:   everdrive.h
  * Author: igor
  *
  * Created on August 25, 2022, 12:58 AM
  */
 
-#ifndef BIOS_H
-#define	BIOS_H
+#ifndef EVERDRIVE_H
+#define	EVERDRIVE_H
 
 /* addr     size 
  * -------------------------------- cpu map 
@@ -40,7 +40,8 @@
 #define ERR_NULL_PATH   0x41
 
 //****************************************************************************** versions
-#define DEVID_TPRO_M22  0x20
+#define DEVID_TE_PRO    0x20
+#define DEVID_TE_CORE   0x26
 #define STATUS_KEY      0x5A
 #define PROTOCOL_ID     0x02
 //****************************************************************************** mapper regs
@@ -165,7 +166,7 @@ typedef struct {
     u32 size;
     u16 date;
     u16 time;
-    u8 is_dir; //structure size hardcoded in bi_rx_file_info
+    u8 is_dir; //structure size hardcoded in ed_rx_file_info
     u8 *file_name;
 } FileInfo;
 
@@ -261,70 +262,70 @@ typedef struct {
 
 
 
-void bi_init();
-u8 bi_fifo_busy();
-void bi_fifo_rd(void *data, u16 len);
-void bi_fifo_wr(void *data, u16 len);
-u8 bi_check_status();
-void bi_tx_string(u8 *string);
-void bi_rx_string(u8 *string);
-u8 bi_rx_next_rec(FileInfo *inf);
-u16 bi_get_ticks();
-void bi_set_ctrl(u8 ctrl);
-void bi_app_start(CartCfg *cfg);
+void ed_init();
+u8 ed_fifo_busy();
+void ed_fifo_rd(void *data, u16 len);
+void ed_fifo_wr(void *data, u16 len);
+u8 ed_check_status();
+void ed_tx_string(u8 *string);
+void ed_rx_string(u8 *string);
+u8 ed_rx_next_rec(FileInfo *inf);
+u16 ed_get_ticks();
+void ed_set_ctrl(u8 ctrl);
+void ed_app_start(CartCfg *cfg);
 
 
-u8 bi_cmd_rapp_set(u32 addr);
-void bi_cmd_rapp_cln();
-u8 bi_cmd_cd_mount(u8 *path);
-void bi_cmd_sys_inf(SysInfoIO *inf);
-u8 bi_cmd_sub_status(u8 stat_req);
-void bi_cmd_get_vdc(Vdc *vdc);
-void bi_set_mem_addr(u32 addr);
-u8 bi_cmd_bram_save();
-void bi_cmd_game_ctr();
-u8 bi_cmd_fpga_init(u8 *path);
-void bi_cmd_reboot();
-u8 bi_cmd_efu_unpack();
-u8 bi_cmd_efu_update(u8 *path);
-u8 bi_cmd_fla_wr_sdc(u32 addr, u32 len);
-void bi_cmd_upd_exec(u32 addr, u32 crc);
-void bi_cmd_rtc_get(RtcTime *time);
-void bi_cmd_rtc_set(RtcTime *time);
-void bi_cmd_usb_wr(void *data, u16 len);
-void bi_cmd_calc_filt(FiltCfg *cfg, FiltPoly *poly);
-u8 bi_cmd_rom_path(u8 *path, u8 path_type);
+u8 ed_cmd_rapp_set(u32 addr);
+void ed_cmd_rapp_cln();
+u8 ed_cmd_cd_mount(u8 *path);
+void ed_cmd_sys_inf(SysInfoIO *inf);
+u8 ed_cmd_sub_status(u8 stat_req);
+void ed_cmd_get_vdc(Vdc *vdc);
+void ed_set_mem_addr(u32 addr);
+u8 ed_cmd_bram_save();
+void ed_cmd_game_ctr();
+u8 ed_cmd_fpga_init(u8 *path);
+void ed_cmd_reboot();
+u8 ed_cmd_efu_unpack();
+u8 ed_cmd_efu_update(u8 *path);
+u8 ed_cmd_fla_wr_sdc(u32 addr, u32 len);
+void ed_cmd_upd_exec(u32 addr, u32 crc);
+void ed_cmd_rtc_get(RtcTime *time);
+void ed_cmd_rtc_set(RtcTime *time);
+void ed_cmd_usb_wr(void *data, u16 len);
+void ed_cmd_calc_filt(FiltCfg *cfg, FiltPoly *poly);
+u8 ed_cmd_rom_path(u8 *path, u8 path_type);
 
-void bi_cmd_tx(u8 cmd);
-void bi_cmd_status(void *status);
-u8 bi_cmd_disk_init();
-u8 bi_cmd_file_open(u8 *path, u8 mode);
-u8 bi_cmd_file_close();
-u8 bi_cmd_file_read(void *dst, u32 len);
-u8 bi_cmd_file_read_mem(u32 addr, u32 len);
-u8 bi_cmd_file_write(void *src, u32 len);
-u8 bi_cmd_file_write_mem(u32 addr, u32 len);
-u8 bi_cmd_file_copy(u8 *src, u8 *dst, u8 dst_mode);
-u32 bi_cmd_file_available();
-u8 bi_cmd_file_set_ptr(u32 addr);
-u8 bi_cmd_file_info(u8 *path, FileInfo *inf);
-u8 bi_cmd_file_del(u8 *path);
-u8 bi_cmd_file_crc(u32 len, u32 *crc_base);
-u8 bi_cmd_file_seek_pat(u8 *pat, u8 psize, u32 fsize, u32 *paddr);
-u8 bi_cmd_dir_make(u8 *path);
+void ed_cmd_tx(u8 cmd);
+void ed_cmd_status(void *status);
+u8 ed_cmd_disk_init();
+u8 ed_cmd_file_open(u8 *path, u8 mode);
+u8 ed_cmd_file_close();
+u8 ed_cmd_file_read(void *dst, u32 len);
+u8 ed_cmd_file_read_mem(u32 addr, u32 len);
+u8 ed_cmd_file_write(void *src, u32 len);
+u8 ed_cmd_file_write_mem(u32 addr, u32 len);
+u8 ed_cmd_file_copy(u8 *src, u8 *dst, u8 dst_mode);
+u32 ed_cmd_file_available();
+u8 ed_cmd_file_set_ptr(u32 addr);
+u8 ed_cmd_file_info(u8 *path, FileInfo *inf);
+u8 ed_cmd_file_del(u8 *path);
+u8 ed_cmd_file_crc(u32 len, u32 *crc_base);
+u8 ed_cmd_file_seek_pat(u8 *pat, u8 psize, u32 fsize, u32 *paddr);
+u8 ed_cmd_dir_make(u8 *path);
 
-u8 bi_cmd_dir_load(u8 *path, u8 dir_opt);
-void bi_cmd_dir_get_size(u16 *size);
-void bi_cmd_dir_seek_idx(u16 *idx);
-void bi_cmd_dir_get_recs(u16 start_idx, u16 amount, u16 max_name_len);
+u8 ed_cmd_dir_load(u8 *path, u8 dir_opt);
+void ed_cmd_dir_get_size(u16 *size);
+void ed_cmd_dir_seek_idx(u16 *idx);
+void ed_cmd_dir_get_recs(u16 start_idx, u16 amount, u16 max_name_len);
 
-void bi_cmd_mem_set(u8 val, u32 addr, u32 len);
-u8 bi_cmd_mem_test(u8 val, u32 addr, u32 len);
-void bi_cmd_mem_rd(u32 addr, void *dst, u32 len);
-void bi_cmd_mem_wr(u32 addr, void *src, u32 len);
-void bi_cmd_mem_crc(u32 addr, u32 len, u32 *crc_base);
+void ed_cmd_mem_set(u8 val, u32 addr, u32 len);
+u8 ed_cmd_mem_test(u8 val, u32 addr, u32 len);
+void ed_cmd_mem_rd(u32 addr, void *dst, u32 len);
+void ed_cmd_mem_wr(u32 addr, void *src, u32 len);
+void ed_cmd_mem_crc(u32 addr, u32 len, u32 *crc_base);
 
-void bi_mem_rdd(u32 mem_addr, void *dst, u32 len); //dma mem. skip mcu
-void bi_mem_wrd(u32 mem_addr, void *src, u32 len); //dma mem. skip mcu
-#endif	/* BIOS_H */
+void ed_mem_rdd(u32 mem_addr, void *dst, u32 len); //dma mem. skip mcu
+void ed_mem_wrd(u32 mem_addr, void *src, u32 len); //dma mem. skip mcu
+#endif	/* EVERDRIVE_H */
 
