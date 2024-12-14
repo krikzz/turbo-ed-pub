@@ -3,7 +3,7 @@ ed_core		fpga cores and execution scripts for Turbo EverDrive CORE
 
 ************************************************************applications
 hello-app	basic hello world app for loading via usb
-edio-app	work with cartrudge features. disk,usb,etc.
+edio-turbo	work with cartrudge features. disk,usb,etc.
 mul-app		hardware multiplication application sample
 
 ************************************************************fpga cores

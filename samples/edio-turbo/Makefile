@@ -32,7 +32,7 @@ OFILES	= $(OBJ:%.o=$(BDIR)/%.o)
 	
 # --------------------------------------------------------------------------
 all: $(OBJ) 
-	$(LD) -C pce.cfg -o edio-app.pce $(OFILES) nes.lib -m $(BDIR)/mem.map
+	$(LD) -C pce.cfg -o edio-turbo.pce $(OFILES) nes.lib -m $(BDIR)/mem.map
 	
 
 %.o: %.s

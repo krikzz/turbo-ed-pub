@@ -53,7 +53,6 @@ void deviceID() {
     //3: EDIO_STATUS
     ed_cmd_status(resp);
 
-
     gConsPrint("dev ID   : ");
     gAppendHex8(resp[2]);
     gConsPrint("dev name : ");
