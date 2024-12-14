@@ -7,3 +7,4 @@ This sample show how to use TurboED PRO/CORE IO
 .lot of other stuff in everdrive.c
 
 usb.bat			load and run edio-turbo.pce via usb
+string-tx.bat		tx text from string.txt via usb for print on screen
