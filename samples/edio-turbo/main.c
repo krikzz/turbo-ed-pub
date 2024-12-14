@@ -23,7 +23,7 @@ void main() {
     gConsPrintCX("EverDrive IO sample");
     gSetXY(0, 2);
 
-    deviceID();
+    deviceID();//device model identification
     romPath(); //get current rom path
     romRead(); //read rom memory
     fileRead(); //read from file
