@@ -66,6 +66,8 @@
   <ItemGroup>
     <Compile Include="CmdProcessor.cs" />
     <Compile Include="CRC32.cs" />
+    <Compile Include="Datafile.cs" />
+    <Compile Include="DataRecord.cs" />
     <Compile Include="Edio.cs" />
     <Compile Include="MenuImage.cs" />
     <Compile Include="NetGate.cs" />

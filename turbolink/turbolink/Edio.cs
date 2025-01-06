@@ -277,7 +277,6 @@ namespace turbolink
                 port.Write(buff, offset, block);
                 len -= block;
                 offset += block;
-
             }
         }
 

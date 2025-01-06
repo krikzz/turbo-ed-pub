@@ -22,7 +22,7 @@ namespace turbolink
 
             try
             {
-                megalink(args);
+                turbolink(args);
             }
             catch (Exception x)
             {
@@ -34,7 +34,7 @@ namespace turbolink
 
         }
 
-        static void megalink(string[] args)
+        static void turbolink(string[] args)
         {
             try
             {

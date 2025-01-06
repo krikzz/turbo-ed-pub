@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Threading;
 
@@ -188,6 +189,30 @@ namespace turbolink
 
         }
 
+        static byte[] getFileData(string path)
+        {
+            byte[] data = null;
+
+            if (path.ToLower().StartsWith("efu:"))
+            {
+                string efu_path = path.Substring(4);
+                efu_path = efu_path.Substring(0, efu_path.IndexOf("//"));
+
+                string file_path = path.Substring(path.IndexOf("//") + 2);
+                file_path = file_path.Replace("\\", "/");
+
+                data = new Datafile(efu_path).getFileData(file_path);
+
+            }
+            else
+            {
+                data = File.ReadAllBytes(path);
+            }
+
+
+            return data;
+        }
+
         static void rstControl(int addr)
         {
 
@@ -335,7 +360,7 @@ namespace turbolink
 
             int addr = getNum(addr_str);
 
-            byte[] data = File.ReadAllBytes(path);
+            byte[] data = getFileData(path);
 
             edio.flaWR(addr, data, 0, data.Length);
 
