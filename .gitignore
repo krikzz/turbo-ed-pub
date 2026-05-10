@@ -1,12 +1,10 @@
 *.bak
 *.o
-*.drc
 *.deb
 *.qws
-iceCube*.log
-accel_uc.log
 db
 incremental_db
 .vs
 obj
-
+build
+nbproject

@@ -1,1 +1,0 @@
-E:\projects\turbo-ed-pro\_tools\turbolink\turbolink\bin\Release\turbolink.exe -rtype hard E:\projects\turbo-ed-pro\fpga\mega\output_files\mapper.rbf -memwr verificator.pce 0x7E0000 
